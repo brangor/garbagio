@@ -31,12 +31,12 @@ window.addEventListener('resize', debounce(() => {
 
 const init = () => {
   squareArray.length = 0
-  
+  id = 0
   for (let i = 0; i < squaresWide; i++) {
     for (let j = 0; j < squaresTall; j++) {
       x = i * 20
       y = j * 20
-      width = 20
+      width = 25
       squareArray.push(new Square(x, y, width))
     }
   }
@@ -49,25 +49,25 @@ const Square = function(x, y, width) {
   this.gradientIncrement = 1
   this.colorIndex = Math.floor(Math.random() * Math.floor(colorArray.length))
   this.color = colorArray[this.colorIndex]
-  
+
   this.draw = function() {
     c.fillStyle = this.color
-    c.fillRect(this.x, this.y, 20, 20)
+    c.fillRect(this.x, this.y, width, width)
   }
-  
+
   this.update = function(direction) {
     this.x += Math.cos(direction)*5;
     this.y += Math.sin(direction)*5;
     this.colorIndex = this.colorIndex + this.gradientIncrement
-    
-    if (this.colorIndex >= colorArray.length) {
+
+    if (this.colorIndex >= colorArray.length-10) {
       this.gradientIncrement = -1
     } else if (this.colorIndex <= 0) {
       this.gradientIncrement = 1
     }
 
     this.color = colorArray[this.colorIndex]
-    
+
     c.fillStyle = this.color
     if (this.x > innerWidth) {
       this.x = 0
@@ -76,7 +76,7 @@ const Square = function(x, y, width) {
     if (this.y > innerHeight ) {
       this.y = 0
     }
-    
+
     if (this.x < 0) {
       this.x = innerWidth;
     }
@@ -84,7 +84,7 @@ const Square = function(x, y, width) {
     if (this.y < 0 ) {
       this.y = innerHeight
     }
-    
+
     this.draw()
   }
 }
@@ -92,20 +92,19 @@ const Square = function(x, y, width) {
 const animate = () => {
   requestAnimationFrame(animate)
   c.clearRect(0, 0, innerWidth, innerHeight)
-  
+
   direction += spinIncrementor
-  //console.log(direction)
+
   if (direction > 360) {
     direction = 0
   } else if (Math.floor(10*direction) % 10 == 0) {
     spinIncrementor = ((Math.random() * 2) - 1) * .01
-    //console.log(spinIncrementor)
   }
-  
+
   for (let i = 0; i < squareArray.length; i++) {
-    squareArray[i].update(direction) 
+    squareArray[i].update(direction)
   }
-  
+
 }
 
 init()
