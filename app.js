@@ -95,9 +95,9 @@ const animate = () => {
 
   direction += spinIncrementor
 
-  if (direction > 360) {
+  if (direction > 100) {
     direction = 0
-  } else if (Math.floor(10*direction) % 10 == 0) {
+  } else if (Math.floor(10*direction) % 25 == 0) {
     spinIncrementor = ((Math.random() * 2) - 1) * .01
   }
 
