@@ -9,8 +9,8 @@ squaresTall = canvas.height/20
 spinIncrementor = .01
 direction = 0
 
-const colorMin = "#101010"
-const colorMax = "#ffffff"
+const colorMin = "#85e3ff"
+const colorMax = "#000000"
 const colorArray = gradient(colorMin, colorMax, 100)
 
 const debounce = (func) => {
